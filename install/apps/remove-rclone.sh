@@ -21,6 +21,7 @@ else
 		# Main script
 
 		/bin/fusermount -uz ${RCLONEMOUNT}
+		/bin/fusermount -uz ${RCLONEMOUNT2}
 		sudo rm /usr/bin/rclone
 		sudo rm /usr/local/share/man/man1/rclone.1
 
@@ -42,10 +43,17 @@ else
 			sudo systemctl stop mergerfs rclonefs
 			sudo systemctl disable mergerfs.service rclonefs.service
 			sudo rm /etc/systemd/system/mergerfs* /etc/systemd/system/rclonefs*
+			
+		if [ -f /etc/systemd/system/rclonefm.service ]; then
+			sudo systemctl stop mergerfm rclonefm
+			sudo systemctl disable mergerfm.service rclonefm.service
+			sudo rm /etc/systemd/system/mergerfm* /etc/systemd/system/rclonefm*
 		fi
 
 		sudo rmdir ${RCLONEMOUNT} > /dev/null 2>&1
 		sudo rmdir ${MOUNTTO} > /dev/null 2>&1
+		sudo rmdir ${RCLONEMOUNT2} > /dev/null 2>&1
+		sudo rmdir ${MOUNTTO2} > /dev/null 2>&1
 
 		sudo systemctl daemon-reload
 
