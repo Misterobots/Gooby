@@ -11,7 +11,7 @@ EnvironmentFile=/var/local/Gooby/Docker/.env
 ExecStartPre=/bin/mkdir -p ${UPLOADS2} ${MOUNTTO2} ${UNSYNCED2}
 ExecStart=/usr/bin/mergerfm \
 	-o use_ino,hard_remove,auto_cache,sync_read,allow_other,category.action=all,category.create=ff \
-	${UPLOADS2}:${UNSYNCED2}:${RCLONEMOUNT2} ${MOUNTTO2}
+	${UPLOADS2}:${UNSYNCED2}:${RCLONEMOUNT2}:${MOUNTTO2}
 ExecStop=/bin/fusermount -uz ${MOUNTTO2}
 ExecStop=/bin/rmdir ${MOUNTTO2}
 Restart=always
