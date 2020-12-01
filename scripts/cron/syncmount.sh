@@ -27,6 +27,14 @@ find ${UPLOADS}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin -0 -e
 
 find ${UPLOADS}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS}'||' | sort > ${TEMPFILE}
 
+# Fix dates in the future
+
+find ${UPLOADS2}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin -0 -exec touch "{}" -d "$(date -d "-5 minutes")" \;
+
+# Identify files needing to be copied
+
+find ${UPLOADS2}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS2}'||' | sort > ${TEMPFILE}
+
 # Copy files
 
 if [[ -s ${TEMPFILE} ]]
