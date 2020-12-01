@@ -34,6 +34,7 @@ CONFIGS=/var/local/Gooby
 CONFIGVARS=${CONFIGS}/Docker/.config
 CURDIR=$(pwd)
 DOWNLOADS=${HOMEDIR}/Downloads
+DOWNLOADS2=${HOMEDIR}/Downloads2
 GOOBYBRANCH=$(cat ${CONFIGVARS}/goobybranch)
 GOOGLE=/mnt/google
 GOOGLE2=/mnt/google2
