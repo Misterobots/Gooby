@@ -29,11 +29,11 @@ find ${UPLOADS}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin +${AG
 
 # Fix dates in the future
 
-find ${UPLOADS2}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin -0 -exec touch "{}" -d "$(date -d "-5 minutes")" \;
+find ${UPLOADS2}/ ! -path "*Downloads2*" ! -iname "*.partial~" -type f -mmin -0 -exec touch "{}" -d "$(date -d "-5 minutes")" \;
 
 # Identify files needing to be copied
 
-find ${UPLOADS2}/ ! -path "*Downloads*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS2}'||' | sort > ${TEMPFILE}
+find ${UPLOADS2}/ ! -path "*Downloads2*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS2}'||' | sort > ${TEMPFILE}
 
 # Copy files
 
@@ -73,6 +73,6 @@ rm ${TEMPFILE}
 cd ${UPLOADS}
 find . ! -path "*Downloads*" -type d -empty -delete
 cd ${UPLOADS2}
-find . ! -path "*Downloads*" -type d -empty -delete
+find . ! -path "*Downloads2*" -type d -empty -delete
 echo Finished at $(date) | tee -a ${LOG}
 echo --------------------------------------------------- | tee -a ${LOG}
