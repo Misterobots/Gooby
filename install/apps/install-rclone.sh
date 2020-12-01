@@ -103,7 +103,7 @@ else
 		
 		if [ ! -d ${UPLOADS2}/Downloads ]; then
 			sudo mv ${HOME}/Downloads ${UPLOADS2}
-			sudo ln -s ${UPLOADS2}/Downloads ${HOME}/Downloads
+			sudo ln -s ${UPLOADS2}/Downloads2 ${HOME}/Downloads2
 		fi
 
 		sudo rsync -a /opt/Gooby/scripts/services/rclonefs* /etc/systemd/system/
@@ -118,7 +118,7 @@ else
 		sudo systemctl enable rclonefs.service
 		sudo systemctl enable mergerfs.service
 		sudo systemctl enable rclonefm.service 
-		sudo systemctl mergerfm.service
+		sudo systemctl enable mergerfm.service
 		sudo systemctl daemon-reload
 		sudo systemctl start rclonefs.service
 		sudo systemctl start mergerfs.service
