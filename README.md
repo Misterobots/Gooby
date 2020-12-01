@@ -8,7 +8,7 @@ The main [Tutorial](http://bit.ly/Tech_Perplexed "How to create an infinite medi
 
 Run on Ubuntu or Debian with this command:  
 `sudo wget http://bit.ly/GetGooby -O /tmp/install.sh && sudo bash /tmp/install.sh`
-`sudo wget https://github.com/Misterobots/Gooby.git -O /tmp/install.sh && sudo bash /tmp/install.sh`
+`sudo wget https://raw.githubusercontent.com/Misterobots/Gooby/master/install/install.sh -O /tmp/install.sh && sudo bash /tmp/install.sh`
 
 
 
