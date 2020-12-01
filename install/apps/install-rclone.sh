@@ -84,6 +84,7 @@ else
 		source /opt/Gooby/install/misc/environment-build.sh rebuild
 
 		mkdir -p ${HOME}/logs ${HOME}/Downloads
+		mkdir -p ${HOME}/logs ${HOME}/Downloads2
 		sudo mkdir -p ${RCLONEMOUNT} ${MOUNTTO} ${UPLOADS} ${UNSYNCED}
 		sudo chown -R ${USER}:${USER} ${HOME} ${CONFIGVARS} ${CONFIGS}/Docker ${RCLONEMOUNT} ${MOUNTTO} ${UPLOADS} ${UNSYNCED}
 		sudo mkdir -p ${RCLONEMOUNT2} ${MOUNTTO2} ${UPLOADS2} ${UNSYNCED2}
@@ -101,8 +102,8 @@ else
 			sudo ln -s ${UPLOADS}/Downloads ${HOME}/Downloads
 		fi
 		
-		if [ ! -d ${UPLOADS2}/Downloads ]; then
-			sudo mv ${HOME}/Downloads ${UPLOADS2}
+		if [ ! -d ${UPLOADS2}/Downloads2 ]; then
+			sudo mv ${HOME}/Downloads2 ${UPLOADS2}
 			sudo ln -s ${UPLOADS2}/Downloads2 ${HOME}/Downloads2
 		fi
 
