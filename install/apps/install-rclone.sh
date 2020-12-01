@@ -15,6 +15,7 @@ if [ -s ${CONFIGVARS}/checkapp ]; then
 	echo
 	echo
 	echo
+	echo "Mount 2"
 	ls -l ${MOUNTTO2}
 	echo
 	echo
@@ -114,7 +115,10 @@ else
 		sudo sed -i "s/GOOBYUSER/${USER}/g" /etc/systemd/system/rclonefm.service
 		sudo sed -i "s/GOOBYUSER/${USER}/g" /etc/systemd/system/mergerfm.service
 
-		sudo systemctl enable rclonefs.service mergerfs.service rclonefm.service mergerfm.service
+		sudo systemctl enable rclonefs.service
+		sudo systemctl enable mergerfs.service
+		sudo systemctl enable rclonefm.service 
+		sudo systemctl mergerfm.service
 		sudo systemctl daemon-reload
 		sudo systemctl start rclonefs.service
 		sudo systemctl start mergerfs.service
