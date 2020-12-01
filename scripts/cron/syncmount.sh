@@ -34,10 +34,13 @@ then
 	while IFS= read -r FILE
 	do
 		rclone rc core/stats --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} | jq '.transferring' | grep "${UPLOADS}${FILE}" > /dev/null
+		rclone rc core/stats --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} | jq '.transferring' | grep "${UPLOADS2}${FILE}" > /dev/null
 		RUNCHECK=${?}
 		if [[ ${RUNCHECK} -gt 0 ]]; then
 			BYTES=$(du "${UPLOADS}${FILE}" | cut -f1)
 			BYTESH=$(du -h "${UPLOADS}${FILE}" | cut -f1)
+			BYTES=$(du "${UPLOADS2}${FILE}" | cut -f1)
+			BYTESH=$(du -h "${UPLOADS2}${FILE}" | cut -f1)
 			echo $(date '+%F %H:%M:%S'),START,1,${BYTES} "# ${FILE}" >> ${APILOG}
 			echo Queuing ${FILE} of size ${BYTESH}
 	                ## Fix for Rclone RC creating multiple directories
@@ -47,6 +50,7 @@ then
 			fi
 			rclone rc operations/movefile _async=true srcFs=Local: srcRemote="${UPLOADS}${FILE}" dstFs=${RCLONESERVICE}:${RCLONEFOLDER} dstRemote="${FILE}" --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} > /dev/null
 			# echo "Sleeping 1 second - temp fix for duplicate folders" ; sleep 1
+			rclone rc operations/movefile _async=true srcFs=Local: srcRemote="${UPLOADS2}${FILE}" dstFs=${RCLONESERVICE2}:${RCLONEFOLDER2} dstRemote="${FILE}" --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} > /dev/null
 		else
 			echo Skipping ${FILE}:  Already in queue
 		fi
@@ -59,6 +63,8 @@ fi
 
 rm ${TEMPFILE}
 cd ${UPLOADS}
+find . ! -path "*Downloads*" -type d -empty -delete
+cd ${UPLOADS2}
 find . ! -path "*Downloads*" -type d -empty -delete
 echo Finished at $(date) | tee -a ${LOG}
 echo --------------------------------------------------- | tee -a ${LOG}
