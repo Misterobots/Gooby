@@ -36,7 +36,7 @@ if [ ! -e ${CONFIGVARS}/proxyversion ]; then
 fi
 
 sudo rsync -a /opt/Gooby/scripts/${PROXYVERSION}/{01-header.yaml,02-oauth.yaml,03-proxy.yaml,04-watchtower.yaml,05-autoheal.yaml,99-footer.yaml} ${CONFIGS}/Docker/components
-touch ${CONFIGVARS}/cf_email ${CONFIGVARS}/cf_key ${CONFIGVARS}/plexclaim ${CONFIGVARS}/rclonefolder ${CONFIGVARS}/rcloneservice ${CONFIGVARS}/rcloneversion ${CONFIGVARS}/version
+touch ${CONFIGVARS}/cf_email ${CONFIGVARS}/cf_key ${CONFIGVARS}/plexclaim ${CONFIGVARS}/rclonefolder ${CONFIGVARS}/rclonefolder2 ${CONFIGVARS}/rcloneservice ${CONFIGVARS}/rcloneservice2 ${CONFIGVARS}/rcloneversion ${CONFIGVARS}/version
 
 source /opt/Gooby/install/misc/environment-build.sh
 
