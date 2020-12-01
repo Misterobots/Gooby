@@ -12,7 +12,7 @@ echo "${LYELLOW}Updating Gooby${STD}"
 echo
 
 sudo rm -r /opt/.Gooby > /dev/null 2>&1
-sudo git clone -b ${GOOBYBRANCH} https://github.com/TechPerplexed/Gooby /opt/.Gooby
+sudo git clone -b ${GOOBYBRANCH} https://github.com/Misterobots/Gooby /opt/.Gooby
 
 if [ -d /opt/.Gooby ]; then
 	sudo rm -r /opt/Gooby
@@ -42,6 +42,8 @@ cd ${CONFIGS}/Docker
 sudo systemctl daemon-reload
 sudo systemctl stop mergerfs
 sudo systemctl stop rclonefs
+sudo systemctl stop mergerfm
+sudo systemctl stop rclonefm
 
 echo
 echo "${LYELLOW}Updating Rclone if possible${STD}"
@@ -64,6 +66,10 @@ mountpoint ${RCLONEMOUNT} > /dev/null
 CODE=${?}
 mountpoint ${MOUNTTO} > /dev/null
 CODE=$[${CODE}+${?}]
+mountpoint ${RCLONEMOUNT2} > /dev/null
+CODE=${?}
+mountpoint ${MOUNTTO2} > /dev/null
+CODE=$[${CODE}+${?}]
 
 while [ ${CODE} -lt 2 ]
 do
@@ -73,10 +79,17 @@ do
 	CODE=${?}
 	mountpoint ${MOUNTTO} > /dev/null
 	CODE=$[${CODE}+${?}]
+	sleep 5
+	mountpoint ${RCLONEMOUNT2} > /dev/null
+	CODE=${?}
+	mountpoint ${MOUNTTO2} > /dev/null
+	CODE=$[${CODE}+${?}]
 done
 
 sudo rmdir ${RCLONEMOUNT} > /dev/null 2>&1
 sudo rmdir ${MOUNTTO} > /dev/null 2>&1
+sudo rmdir ${RCLONEMOUNT2} > /dev/null 2>&1
+sudo rmdir ${MOUNTTO2} > /dev/null 2>&1
 echo -n > ${LOGS}/rclone.log
 
 sudo chown -R ${USER}:${USER} /mnt
@@ -94,12 +107,20 @@ source /opt/Gooby/install/misc/environment-build.sh rebuild
 sudo systemctl start rclonefs
 sleep 10
 sudo systemctl start mergerfs
+sleep 10
+sudo systemctl start rclonefm
+sleep 10
+sudo systemctl start mergerfm
 
 # Are mounts truly up?
 
 mountpoint ${RCLONEMOUNT} > /dev/null
 CODE=${?}
 mountpoint ${MOUNTTO} > /dev/null
+CODE=$[${CODE}+${?}]
+mountpoint ${RCLONEMOUNT2} > /dev/null
+CODE=${?}
+mountpoint ${MOUNTTO2} > /dev/null
 CODE=$[${CODE}+${?}]
 
 while [ ${CODE} -ne 0 ]
@@ -109,6 +130,10 @@ do
         mountpoint ${RCLONEMOUNT} > /dev/null
         CODE=${?}
         mountpoint ${MOUNTTO} > /dev/null
+        CODE=$[${CODE}+${?}]
+	mountpoint ${RCLONEMOUNT2} > /dev/null
+        CODE=${?}
+        mountpoint ${MOUNTTO2} > /dev/null
         CODE=$[${CODE}+${?}]
 done
 
