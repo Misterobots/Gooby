@@ -1,0 +1,35 @@
+[Unit]
+Description=Mount Google Drive2 (Rclone)
+After=syslog.target local-fs.target network.target
+
+[Service]
+EnvironmentFile=/var/local/Gooby/Docker/.env
+
+Type=simple
+User=GOOBYUSER
+Group=GOOBYUSER
+ExecStartPre=/bin/mkdir -p ${RCLONEMOUNT2}
+ExecStart=/usr/bin/rclone mount \
+	--allow-other \
+	--buffer-size 0M \
+	--dir-cache-time 96h \
+	--gid ${USERID} \
+	--log-level INFO \
+	--log-file ${HOMEDIR}/logs/rclone.log \
+	--timeout 1h \
+	--tpslimit 10 \
+	--tpslimit-burst 10 \
+	--uid ${GROUPID} \
+	--umask 002 \
+	--user-agent GOOBYUSER \
+	--rc \
+	--rc-pass ${RCLONEPASSWORD} \
+	--rc-user ${RCLONEUSERNAME} \
+	--config ${HOMEDIR}/.config/rclone/rclone.conf \
+	${RCLONESERVICE2}:${RCLONEFOLDER2} ${RCLONEMOUNT2}
+ExecStop=/bin/fusermount -uz ${RCLONEMOUNT2}
+ExecStop=/bin/rmdir ${RCLONEMOUNT2}
+Restart=always
+
+[Install]
+WantedBy=default.target unionfs.service mergerfm.service
