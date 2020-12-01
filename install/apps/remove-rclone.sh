@@ -43,6 +43,7 @@ else
 			sudo systemctl stop mergerfs rclonefs
 			sudo systemctl disable mergerfs.service rclonefs.service
 			sudo rm /etc/systemd/system/mergerfs* /etc/systemd/system/rclonefs*
+		fi
 			
 		if [ -f /etc/systemd/system/rclonefm.service ]; then
 			sudo systemctl stop mergerfm rclonefm
