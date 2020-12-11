@@ -16,7 +16,9 @@
       - /bin/netstat:/bin/netstat:ro
       - ${CONFIGS}/Deluge:/config
       - ${DOWNLOADS}:/Downloads
+      - ${DOWNLOADS2}:/Downloads2
       - ${MEDIA}:/Media
+      - ${MEDIA2}:/Media2
     environment:
       - PUID=${USERID}
       - PGID=${GROUPID}
