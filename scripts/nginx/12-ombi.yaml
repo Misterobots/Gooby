@@ -12,6 +12,7 @@
       - /bin/netstat:/bin/netstat
       - ${CONFIGS}/Ombi:/config
       - ${MEDIA}:/Media
+      - ${MEDIA2}:/Media2
     environment:
       - PUID=${USERID}
       - PGID=${GROUPID}
