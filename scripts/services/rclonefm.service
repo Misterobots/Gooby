@@ -22,7 +22,6 @@ ExecStart=/usr/bin/rclone mount \
 	--uid ${GROUPID} \
 	--umask 002 \
 	--user-agent GOOBYUSER \
-	--rc \
 	--rc-pass ${RCLONEPASSWORD} \
 	--rc-user ${RCLONEUSERNAME} \
 	--config ${HOMEDIR}/.config/rclone/rclone.conf \
