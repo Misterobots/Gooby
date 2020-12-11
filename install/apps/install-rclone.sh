@@ -116,16 +116,17 @@ else
 		sudo sed -i "s/GOOBYUSER/${USER}/g" /etc/systemd/system/rclonefm.service
 		sudo sed -i "s/GOOBYUSER/${USER}/g" /etc/systemd/system/mergerfm.service
 
-		sudo systemctl enable rclonefs.service
-		sudo systemctl enable mergerfs.service
 		sudo systemctl enable rclonefm.service 
 		sudo systemctl enable mergerfm.service
+		sudo systemctl enable rclonefs.service
+		sudo systemctl enable mergerfs.service
 		sudo systemctl daemon-reload
-		sudo systemctl start rclonefs.service
-		sudo systemctl start mergerfs.service
 		sudo systemctl start rclonefm.service
-		sleep 10; sudo systemctl start mergerfm.service
-
+		sudo systemctl start mergerfm.service
+		sudo systemctl start rclonefs.service
+		sleep 10; sudo systemctl start mergerfs.service
+		
+	
 		# Create syncmount cron
 		crontab -l | grep 'syncmount.sh' || (crontab -l 2>/dev/null; echo "0,15,30,45 * * * * /opt/Gooby/scripts/cron/syncmount.sh > /dev/null 2>&1") | crontab -
 
