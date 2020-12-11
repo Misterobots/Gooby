@@ -15,6 +15,7 @@
       - /tmp:/transcode
       - /bin/netstat:/bin/netstat:ro
       - ${MEDIA}:/Media
+      - ${MEDIA2}:/Media2
     environment:
       - ADVERTISE_IP=https://plex.${MYDOMAIN}:8443
       - PUID=${USERID}
@@ -29,6 +30,7 @@
       - LETSENCRYPT_EMAIL=${MYEMAIL}
     healthcheck:
       test: ["CMD-SHELL", "netstat -ntlp | grep :32400 && mountpoint /Media"]
+      test: ["CMD-SHELL", "netstat -ntlp | grep :32400 && mountpoint /Media2"]
       interval: 10s
       timeout: 2s
       retries: 3
