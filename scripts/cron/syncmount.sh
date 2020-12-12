@@ -16,6 +16,7 @@ source ${CONFIGS}/Docker/.env
 AGE=2	# How many minutes old a file must be before copying/deleting
 LOG=${LOGS}/mounter-sync.log
 TEMPFILE="/tmp/filesmissing"
+TEMPFILE2="/tmp/filesmissing2"
 
 echo Starting sync at $(date) | tee -a ${LOG}
 
@@ -33,7 +34,7 @@ find ${UPLOADS2}/ ! -path "*Downloads2*" ! -iname "*.partial~" -type f -mmin -0 
 
 # Identify files needing to be copied
 
-find ${UPLOADS2}/ ! -path "*Downloads2*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS2}'||' | sort > ${TEMPFILE}
+find ${UPLOADS2}/ ! -path "*Downloads2*" ! -iname "*.partial~" -type f -mmin +${AGE} | sed 's|'${UPLOADS2}'||' | sort > ${TEMPFILE2}
 
 # Copy files
 
@@ -42,13 +43,10 @@ then
 	while IFS= read -r FILE
 	do
 		rclone rc core/stats --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} | jq '.transferring' | grep "${UPLOADS}${FILE}" > /dev/null
-		rclone rc core/stats --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} | jq '.transferring' | grep "${UPLOADS2}${FILE}" > /dev/null
 		RUNCHECK=${?}
 		if [[ ${RUNCHECK} -gt 0 ]]; then
 			BYTES=$(du "${UPLOADS}${FILE}" | cut -f1)
 			BYTESH=$(du -h "${UPLOADS}${FILE}" | cut -f1)
-			BYTES=$(du "${UPLOADS2}${FILE}" | cut -f1)
-			BYTESH=$(du -h "${UPLOADS2}${FILE}" | cut -f1)
 			echo $(date '+%F %H:%M:%S'),START,1,${BYTES} "# ${FILE}" >> ${APILOG}
 			echo Queuing ${FILE} of size ${BYTESH}
 	                ## Fix for Rclone RC creating multiple directories
@@ -58,11 +56,36 @@ then
 			fi
 			rclone rc operations/movefile _async=true srcFs=Local: srcRemote="${UPLOADS}${FILE}" dstFs=${RCLONESERVICE}:${RCLONEFOLDER} dstRemote="${FILE}" --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} > /dev/null
 			# echo "Sleeping 1 second - temp fix for duplicate folders" ; sleep 1
-			rclone rc operations/movefile _async=true srcFs=Local: srcRemote="${UPLOADS2}${FILE}" dstFs=${RCLONESERVICE2}:${RCLONEFOLDER2} dstRemote="${FILE}" --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} > /dev/null
 		else
 			echo Skipping ${FILE}:  Already in queue
 		fi
 	done < ${TEMPFILE}
+else
+	echo Nothing to copy | tee -a ${LOG}
+fi
+
+if [[ -s ${TEMPFILE2} ]]
+then
+	while IFS= read -r FILE2
+	do
+		rclone rc core/stats --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} | jq '.transferring' | grep "${UPLOADS2}${FILE2}" > /dev/null
+		RUNCHECK=${?}
+		if [[ ${RUNCHECK} -gt 0 ]]; then
+			BYTES=$(du "${UPLOADS2}${FILE2}" | cut -f1)
+			BYTESH=$(du -h "${UPLOADS2}${FILE2}" | cut -f1)
+			echo $(date '+%F %H:%M:%S'),START,1,${BYTES} "# ${FILE2}" >> ${APILOG}
+			echo Queuing ${FILE2} of size ${BYTESH}
+	                ## Fix for Rclone RC creating multiple directories
+			TESTDIR="${RCLONEMOUNT2}$(dirname "${FILE2}")"
+			if [[ ! -d "${TESTDIR}" ]]; then
+				mkdir -p "${TESTDIR}"
+			fi
+			# echo "Sleeping 1 second - temp fix for duplicate folders" ; sleep 1
+			rclone rc operations/movefile _async=true srcFs=Local: srcRemote="${UPLOADS2}${FILE2}" dstFs=${RCLONESERVICE2}:${RCLONEFOLDER2} dstRemote="${FILE2}" --user ${RCLONEUSERNAME} --pass ${RCLONEPASSWORD} > /dev/null
+		else
+			echo Skipping ${FILE2}:  Already in queue
+		fi
+	done < ${TEMPFILE2}
 else
 	echo Nothing to copy | tee -a ${LOG}
 fi
