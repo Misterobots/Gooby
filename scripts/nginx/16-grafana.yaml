@@ -1,0 +1,33 @@
+#
+# Grafana
+#
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    environment:
+      - PUID=${USERID}
+      - PGID=${GROUPID}
+      - VIRTUAL_HOST=graf.shivelymedia.com
+      - VIRTUAL_NETWORK=nginx-proxy
+      - LETSENCRYPT_HOST=graf.shivelymeida.com
+      - LETSENCRYPT_EMAIL=pause.not@gmail.com
+      - VIRTUAL_PORT=3000
+      - GF_SECURITY_ADMIN_USER=Admin
+      - GF_SECURITY_ADMIN_PASSWORD=pass
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_PROXY_ENABLED=true \
+      - GF_AUTH_PROXY_HEADER_NAME="X-WEBAUTH-USER" \
+      - GF_AUTH_PROXY_HEADER_PROPERTY="misterobots" \
+      - GF_AUTH_PROXY_AUTO_SIGN_UP=true \
+      - GF_AUTH_PROXY_LDAP_SYNC_TTL=60 \
+      - GF_AUTH_PROXY_WHITELIST="74.208.19.242" \
+      - GF_AUTH_PROXY_HEADERS="Email:X-User-Email, Name:X-User-Name"
+      - GF_ALLOW_SIGN_UP=false
+      - GF_ALLOW_EMBEDDING=true
+
+    user: "root"
+    volumes:
+      - ${CONFIGS}/grafana/grafana_data:/var/lib/grafana
+      - ${CONFIGS}/grafana/provisioning:/etc/grafana/provisioning
+      - ${CONFIGS}/grafana/logs:/var/log/grafana
