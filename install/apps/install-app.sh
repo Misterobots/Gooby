@@ -74,13 +74,16 @@ else
 		fi
 		
 		if [[ ${TASK} = "Organizr2" && ! -d ${OLDLOC} && ! -d ${CONFIGS}/${TASK} ]]; then
-		echo "${YELLOW}Please follow the instructions to setup your second Organizr Site${STD}"
-		echo
-		echo
-		read -e -p "Enter the domain name (ex. mydomain.com) " -i "${ORGANIZR2}" ORGANIZR2
-		echo
-		echo
-		echo ""
+			echo "${YELLOW}Please follow the instructions to setup your second Organizr Site${STD}"
+			echo
+			echo
+			read -e -p "Enter the domain name (ex. mydomain.com) " -i "${ORGANIZR2}" ORGANIZR2
+			echo
+			echo
+			echo ""
+		
+		fi
+		
 		cd ${CONFIGS}/Docker
 		sudo rsync -a /opt/Gooby/scripts/${PROXYVERSION}/${APPLOC}.yaml ${CONFIGS}/Docker/components
 		echo "Just a moment while ${APP} is being installed..."
