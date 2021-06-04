@@ -59,6 +59,32 @@ ORGANIZR2(){
 	source /opt/Gooby/menus/apps.sh
 }
 
+NODE(){
+	TASK=Node
+	APP=node
+	APPTYPE=app
+	APPLOC=17-node
+	OLDLOC=/noupgradepathprovided
+	source /opt/Gooby/menus/apps.sh
+}
+
+PROMETHEUS(){
+	TASK=Prometheus
+	APP=prometheus
+	APPTYPE=app
+	APPLOC=18-prometheus
+	OLDLOC=/noupgradepathprovided
+	source /opt/Gooby/menus/apps.sh
+}
+
+GRAFANA(){
+	TASK=Grafana
+	APP=grafana
+	APPTYPE=app
+	APPLOC=16-netdata
+	OLDLOC=/noupgradepathprovided
+	source /opt/Gooby/menus/apps.sh
+}
 
 QUIT(){
 	exit
@@ -76,6 +102,9 @@ show_menus() {
 	echo " ${COLOUR}D${STD} - Portainer"
 	echo " ${COLOUR}E${STD} - PHP Apache"
 	echo " ${COLOUR}B${STD} - Second Organizr Site"
+	echo " ${COLOUR}E${STD} - Node"	
+	echo " ${COLOUR}E${STD} - Prometheus"	
+	echo " ${COLOUR}E${STD} - Grafana"	
 	echo " ${WHITE}Z${STD} - EXIT to Main Menu"
 	echo " ${COLOUR}"
 	MENUEND
@@ -93,6 +122,9 @@ read_options(){
 		[Dd]) PORTAINER ;;
 		[Ee]) APACHE ;;
 		[Ff]) ORGANIZR2 ;;
+		[Gg]) NODE ;;		
+		[Hh]) PROMETHEUS ;;
+		[Ii]) GRAFANA ;;
 		[Zz]) QUIT ;;
 		*) echo "${LRED}Please select a valid option${STD}" && sleep 1
 	esac
