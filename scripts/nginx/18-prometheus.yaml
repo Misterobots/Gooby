@@ -1,0 +1,28 @@
+#
+#Prometheus
+#
+
+  prometheus:
+    restart: always
+    image: prom/prometheus
+    container_name: prometheus
+    hostname: prometheus
+    volumes:
+      - ${CONFIGS}/prometheus:/etc/prometheus
+      - ${CONFIGS}/prometheus_data:/prometheus
+    command:
+      - '--config.file=/home/misterobots/OraiBots/oraichain-prometheus/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    environment:
+      - PUID=${USERID}
+      - PGID=${GROUPID}
+      - VIRTUAL_HOST=prometheus.shivelymedia.com
+      - VIRTUAL_PORT=9090
+      - VIRTUAL_NETWORK=nginx-proxy
+      - LETSENCRYPT_HOST=prometheus.shivelymedia.com
+      - LETSENCRYPT_EMAIL=pause.not@gmail.com
+
+
+
