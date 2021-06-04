@@ -8,7 +8,7 @@ source /opt/Gooby/menus/variables.sh
 source ${CONFIGS}/Docker/.env
 
 echo
-echo "${LYELLOW}Updating Gooby${STD}"
+echo "${LYELLOW}Checking for Server Update${STD}"
 echo
 
 sudo rm -r /opt/.Gooby > /dev/null 2>&1
