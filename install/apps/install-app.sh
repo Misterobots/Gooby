@@ -77,18 +77,9 @@ else
 		echo "${YELLOW}Please follow the instructions to setup your second Organizr Site${STD}"
 		echo
 		echo
-		read -e -p "Confirm that this is what you named your TV-Shows Mount  " -i "${RCLONESERVICE}" RCLONESERVICE
+		read -e -p "Enter the domain name (ex. mydomain.com) " -i "${ORGANIZR2}" ORGANIZR2
 		echo
-		echo "What is your media folder in ${RCLONESERVICE}?"
-		read -e -p "Leave empty for root - not recommended! (ex: Media)  " -i "" RCLONEFOLDER
 		echo
-		read -r RCLONESERVICE2 < ${HOME}/.config/rclone/rclone.conf; RCLONESERVICE2=${RCLONESERVICE2:1:-1}
-		read -e -p "Confirm that this is what you named your Movies Mount  " -i "${RCLONESERVICE2}" RCLONESERVICE2
-		echo
-		echo "What is your media folder in ${RCLONESERVICE2}?"
-		read -e -p "Leave empty for root - not recommended! (ex: Media)  " -i "" RCLONEFOLDER2
-		echo
-
 		echo ""
 		cd ${CONFIGS}/Docker
 		sudo rsync -a /opt/Gooby/scripts/${PROXYVERSION}/${APPLOC}.yaml ${CONFIGS}/Docker/components
