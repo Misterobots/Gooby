@@ -50,6 +50,16 @@ APACHE(){
 	source /opt/Gooby/menus/apps.sh
 }
 
+ORGANIZR2(){
+	TASK=Organizr2
+	APP=organizr2
+	APPTYPE=app
+	APPLOC=12-organizr2
+	OLDLOC=/noupgradepathprovided
+	source /opt/Gooby/menus/apps.sh
+}
+
+
 QUIT(){
 	exit
 }
@@ -65,6 +75,7 @@ show_menus() {
 	echo " ${COLOUR}C${STD} - Ombi"
 	echo " ${COLOUR}D${STD} - Portainer"
 	echo " ${COLOUR}E${STD} - PHP Apache"
+	echo " ${COLOUR}B${STD} - Second Organizr Site"
 	echo " ${WHITE}Z${STD} - EXIT to Main Menu"
 	echo " ${COLOUR}"
 	MENUEND
@@ -81,6 +92,7 @@ read_options(){
 		[Cc]) OMBI ;;
 		[Dd]) PORTAINER ;;
 		[Ee]) APACHE ;;
+		[Ff]) ORGANIZR2 ;;
 		[Zz]) QUIT ;;
 		*) echo "${LRED}Please select a valid option${STD}" && sleep 1
 	esac
