@@ -10,10 +10,10 @@ CONFIRMATION
 
 if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
-	echo Updating Gooby to ${GOOBYBRANCH}; echo
+	echo Updating Gooby; echo
 
 	sudo rm -r /opt/.Gooby > /dev/null 2>&1
-	sudo git clone -b ${GOOBYBRANCH} https://github.com/Misterobots/Gooby /opt/.Gooby
+	sudo git clone -b https://github.com/Misterobots/Gooby /opt/.Gooby
 
 	if [ -d /opt/.Gooby ]; then
 		sudo rm -r /opt/Gooby
