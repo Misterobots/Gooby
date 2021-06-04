@@ -54,7 +54,7 @@ ORGANIZR2(){
 	TASK=Organizr2
 	APP=organizr2
 	APPTYPE=app
-	APPLOC=12-organizr2
+	APPLOC=11-organizr2
 	OLDLOC=/noupgradepathprovided
 	source /opt/Gooby/menus/apps.sh
 }
