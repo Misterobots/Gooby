@@ -89,6 +89,7 @@ else
 		echo "Just a moment while ${APP} is being installed..."
 		source /opt/Gooby/install/misc/environment-build.sh rebuild
 		/usr/local/bin/docker-compose up -d --remove-orphans
+		pause
 		cd "${CURDIR}"
 
 		if [ ${APP} == organizr2 ]; then APP=${ORGMENU}; fi
