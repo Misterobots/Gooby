@@ -32,7 +32,7 @@ MENUSTART(){
 	clear
 	echo " ${COLOUR}"
 	echo "--------------------------------------------------"
-	echo " ${GOOBY}${COLOUR} instructions at techperplexed.blogspot.com"
+	echo " ${GOOBY}${COLOUR} by Misterobots"
 	echo "--------------------------------------------------"
 	echo " ${MENU}"
 	echo " ${STD}"
