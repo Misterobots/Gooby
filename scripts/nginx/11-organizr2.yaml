@@ -3,7 +3,7 @@
 #
   Organizr:
     restart: always
-    image: organizrtools/organizr-v2
+    image: organizr/organizr:latest
     container_name: organizr
     hostname: ${ORGMENU}
     depends_on:
