@@ -3,7 +3,7 @@
 #
   Organizr:
     restart: always
-    image: organizr/organizr
+    image: organizr/organizr:latest
     container_name: organizr
     hostname: Organizr
     depends_on:
