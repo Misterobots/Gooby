@@ -82,6 +82,7 @@ else
 			echo
 			echo ""
 		
+			echo "${ORGMENU}" > ${CONFIGVARS}/orgmenu
 		fi
 		
 		cd ${CONFIGS}/Docker
