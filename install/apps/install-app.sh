@@ -77,7 +77,7 @@ else
 			echo "${YELLOW}Please follow the instructions to setup your second Organizr Site${STD}"
 			echo
 			echo
-			read -e -p "Enter the domain name (ex. mydomain.com) " -i "${ORGANIZR2}" ORGANIZR2
+			read -e -p "Enter the domain name (ex. mydomain.com) " -i "${ORGMENU}" ORGMENU
 			echo
 			echo
 			echo ""
