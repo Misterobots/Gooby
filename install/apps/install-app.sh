@@ -91,7 +91,7 @@ else
 		pause 'Press [Enter] key to continue...'
 		cd "${CURDIR}"
 
-		if [ ${APP} == organizr2 ]; then APP=${ORGMENU}; fi
+	#	if [ ${APP} == organizr2 ]; then APP=${ORGMENU}; fi
 
 		APPINSTALLED
 
