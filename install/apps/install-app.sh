@@ -78,11 +78,9 @@ else
 			echo
 			echo
 			read -e -p "Enter the domain name (ex. mydomain.com) " ORGMENU
-			echo
-			echo
 			echo ""
-		
 			echo "${ORGMENU}" > ${CONFIGVARS}/orgmenu
+		
 		fi
 		
 		cd ${CONFIGS}/Docker
