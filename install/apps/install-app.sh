@@ -1,5 +1,5 @@
 #!/bin/bash
-source ${CONFIGS}/Docker/.env
+
 docker ps -q -f name=${APP} > ${CONFIGVARS}/checkapp
 clear
 
