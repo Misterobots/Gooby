@@ -12,6 +12,10 @@ ExecStartPre=/bin/mkdir -p ${RCLONEMOUNT}
 ExecStart=/usr/bin/rclone mount \
 	--allow-other \
 	--buffer-size 0M \
+	--vfs-cache-mode full \
+	--vfs-cache-max-age 24h \
+	--vfs-cache-max-size 20G \
+	--dir-cache-time 96h \
 	--dir-cache-time 96h \
 	--gid ${USERID} \
 	--log-level INFO \
